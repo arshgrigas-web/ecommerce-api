@@ -2,6 +2,6 @@ __pycache__/
 *.pyc
 *.pyo
 .env
-*.txt
+servers.txt
 servers.json
 missing_file.txt
