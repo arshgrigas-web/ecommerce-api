@@ -24,3 +24,21 @@ jobs:
         context: .
         push: true
         tags: arshgrig/ecommerce-api:latest
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Deploy to Kubernetes
+      uses: appleboy/ssh-action@v0.1.5
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          docker pull arshgrig/ecommerce-api:latest
+          docker save arshgrig/ecommerce-api:latest -o /tmp/ecommerce-api.tar
+          sudo ctr -n k8s.io images import /tmp/ecommerce-api.tar
+          kubectl rollout restart deployment ecommerce-api -n ecommerce
+          kubectl rollout status deployment ecommerce-api -n ecommerce
