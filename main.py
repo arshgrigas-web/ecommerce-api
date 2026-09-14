@@ -4,10 +4,12 @@ from typing import List, Optional
 from sqlalchemy.orm import Session
 from database import SessionLocal, ProductDB, create_tables
 from prometheus_fastapi_instrumentator import Instrumentator
-Instrumentator().instrument(app).expose(app)
 
+# First create app
 app = FastAPI(title="E-Commerce API", version="1.0.0")
 
+# Then add metrics AFTER app is created
+Instrumentator().instrument(app).expose(app)
 
 # Create tables on startup
 create_tables()
