@@ -3,8 +3,11 @@ from pydantic import BaseModel
 from typing import List, Optional
 from sqlalchemy.orm import Session
 from database import SessionLocal, ProductDB, create_tables
+from prometheus_fastapi_instrumentator import Instrumentator
+Instrumentator().instrument(app).expose(app)
 
 app = FastAPI(title="E-Commerce API", version="1.0.0")
+
 
 # Create tables on startup
 create_tables()
