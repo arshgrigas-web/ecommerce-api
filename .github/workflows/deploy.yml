@@ -37,4 +37,4 @@ jobs:
         docker save arshgrig/ecommerce-api:latest -o /tmp/ecommerce-api.tar
         sudo ctr -n k8s.io images import /tmp/ecommerce-api.tar
         kubectl rollout restart deployment ecommerce-api -n ecommerce
-        kubectl rollout status deployment ecommerce-api -n ecommerce
+        kubectl rollout status deployment ecommerce-api -n ecommerce --timeout=120s
