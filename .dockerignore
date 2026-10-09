@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.git
+.gitignore
+*_practice.py
+hello.py
+server_check.py
+jason_practice.py
+servers.json
+servers.txt
+missing_file.txt
