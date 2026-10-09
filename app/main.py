@@ -13,7 +13,7 @@ app = FastAPI(
 )
 
 # Prometheus metrics
-Instrumentator().instrument(app).expose(app)
+Instrumentator(excluded_handlers=["/metrics"]).instrument(app).expose(app)
 
 # Include routers
 app.include_router(auth.router)
