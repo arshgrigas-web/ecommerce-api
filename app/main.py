@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from prometheus_fastapi_instrumentator import Instrumentator
 from app.database import engine, Base
 from app.routers import auth, products, orders
 
@@ -11,9 +10,6 @@ app = FastAPI(
     description="Real e-commerce platform with users, products, orders and payments",
     version="2.0.0"
 )
-
-# Prometheus metrics
-Instrumentator(excluded_handlers=["/metrics"]).instrument(app).expose(app)
 
 # Include routers
 app.include_router(auth.router)
