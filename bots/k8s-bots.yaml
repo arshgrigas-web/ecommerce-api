@@ -1,0 +1,59 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: customer-bot
+  namespace: ecommerce
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: customer-bot
+            image: arshgrig/ecommerce-bots:latest
+            command: ["python", "customer_bot.py"]
+            env:
+            - name: API_URL
+              value: "http://ecommerce-api:8000"
+          restartPolicy: Never
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: delivery-bot
+  namespace: ecommerce
+spec:
+  schedule: "*/10 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: delivery-bot
+            image: arshgrig/ecommerce-bots:latest
+            command: ["python", "delivery_bot.py"]
+            env:
+            - name: API_URL
+              value: "http://ecommerce-api:8000"
+          restartPolicy: Never
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: admin-bot
+  namespace: ecommerce
+spec:
+  schedule: "*/3 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: admin-bot
+            image: arshgrig/ecommerce-bots:latest
+            command: ["python", "admin_bot.py"]
+            env:
+            - name: API_URL
+              value: "http://ecommerce-api:8000"
+          restartPolicy: Never
