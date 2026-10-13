@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine, Base
 from app.routers import auth, products, orders
 
@@ -9,6 +10,15 @@ app = FastAPI(
     title="E-Commerce API",
     description="Real e-commerce platform with users, products, orders and payments",
     version="2.0.0"
+)
+
+# CORS - allow all origins for development
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Include routers
